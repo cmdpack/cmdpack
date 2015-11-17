@@ -1,4 +1,23 @@
 #!/bin/sh
-MYFLAGS=
-gcc $MYFLAGS -O9 -Wall -Wextra -Werror -fomit-frame-pointer "$1.c" -s -o "$1"
 
+c=''
+MYFLAGS=
+
+while [ "$1" ]; do
+	case "$1" in
+		*'.c')
+			if [ -f "$1" ]; then
+				let len=${#1}-2
+				c=${1:0:$len}
+			fi
+			shift;;
+		*)
+			if [ -f "$1.c" ]; then
+				c="$1"
+			fi
+			shift;;
+	esac
+
+	echo "Compiling $c ..."
+	gcc $MYFLAGS -O9 -Wall -Wextra -Werror -fomit-frame-pointer "$c.c" -s -o "$c"
+done

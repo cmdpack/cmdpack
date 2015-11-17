@@ -1369,14 +1369,14 @@ static int read_iso_dr(
         for(i = 0; i < namelen; i++) {
             uint8_t c = n->name[i];
             if(
-                (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
                 (c >= '0' && c <= '9') ||
                 (c == '_')
             ) {
                 // acceptable character
-            } else if(c >= 'A' && c <= 'Z') {
-                // uppercase alpha - convert to lowercase
-                c += ('a' - 'A');
+            } else if(c >= 'a' && c <= 'z') {
+                // lowercase alpha - convert to uppercase
+                c -= ('a' - 'A');
             } else if(c == '.') {
                 // if the next character is the end, or version number, then
                 // eat the dot
